@@ -16,6 +16,10 @@ server.listen(port, () => {
 // En el navegador
 // http://localhost:4000/
 
+
+
+
+
 // Ts
 let productName = "tablet"
 let isAuth = false
@@ -54,6 +58,7 @@ interface ProductoID {
 
 // Los types tienen los utilityTypes
 // por ejmplo el Pick para establecerle un type directamente
+// Tambien hay otro que es Omit es para ignorar los que se le coloque el Omit
 
 // Se le asigna con los dos puntos el type
 // let product : Product = {

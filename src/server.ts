@@ -16,6 +16,7 @@ connectDB()
 // Instancia de express, instancia del servidor
 const app = express()
 
+// este es un middleware, entrada de datos
 // Habilitamos la lectura de datos
 app.use(express.json())
 

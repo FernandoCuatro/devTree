@@ -1,4 +1,7 @@
 import { Router } from 'express';
+import { body } from "express-validator";
+import { createAccount, login } from './handlers';
+import { handleInputError } from './middleware/validation';
 
 // Todas las rutas para mandarlas a la aplicacion principal
 const router = Router()
@@ -19,15 +22,27 @@ const router = Router()
 // })
 
 // autenticacion y registro
-router.post('/auth/register', (req, res) => {
-    // console.log('desde registro');
+// pero antes validamos que los datos esten correctos 
+// antes de ir a hacer todas las peticiones
+router.post('/auth/register', 
+    body('handle').notEmpty().withMessage('El handle no puede ir vacío'),
+    body('name').notEmpty().withMessage('El nombre no puede ir vacío'),
+    body('email').isEmail().withMessage('E-mail no valido'),
+    body('password').isLength({ min: 8 }).withMessage('El password no puede ir vacío, mínimo 8 caracteres'),
+    handleInputError,
+    createAccount
+)
 
-    // Aqui vamos a obtener la infromacion que el usuario envia
-    // recuperamos en el envio
-    console.log(req.body);
-    
-    
-})
+// segunda ruta para peticiones
+router.post('/auth/login', 
+    body('email').isEmail().withMessage('E-mail no valido'),
+    body('password').notEmpty().withMessage('El password no puede ir vacío'),
+    handleInputError,
+    login
+)
+
+
+
 
 
 
